@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Hand Scanning Animation</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="scan" id="scanContainer">
+  <div class="hand">
+    <div class="lines"></div>
+  </div>
+  <h3>Hand Print Scanning</h3>
+</div>
+<!-- partial -->
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const scanContainer = document.getElementById('scanContainer');
+  let scanTimeout;
+  
+  scanContainer.addEventListener('click', function() {
+    // Clear any existing timeout
+    if (scanTimeout) {
+      clearTimeout(scanTimeout);
+    }
+    
+    // Toggle the active class
+    if (scanContainer.classList.contains('active')) {
+      // Stop scanning
+      scanContainer.classList.remove('active');
+      scanContainer.classList.remove('completed');
+    } else {
+      // Start scanning
+      scanContainer.classList.add('active');
+      scanContainer.classList.remove('completed');
+      
+      // Set timeout to stop animation after 7 seconds
+      scanTimeout = setTimeout(function() {
+        scanContainer.classList.remove('active');
+        scanContainer.classList.add('completed');
+      }, 7000); // 7 seconds
+    }
+  });
+});
+</script>
+  
+</body>
+</html>
