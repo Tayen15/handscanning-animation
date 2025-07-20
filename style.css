@@ -1,0 +1,165 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: consolas;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #111;
+}
+.scan {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+.scan .hand {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  background: url(hand_02.png);
+  background-size: 500px;
+}
+.scan .hand::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: url(hand_01.png);
+  background-size: 500px;
+}
+.scan.active .hand::before {
+  animation: animate 6s ease-in-out 1;
+}
+@keyframes animate {
+  0%,
+  100% {
+    height: 0%;
+  }
+  50% {
+    height: 100%;
+  }
+}
+.scan .hand::after {
+  content: "";
+  position: absolute;
+  top: 0%;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: #3fefef;
+  border-radius: 8px;
+  filter: drop-shadow(0 0 20px #3fefef) drop-shadow(0 0 60px #3fefef);
+}
+.scan.active .hand::after {
+  animation: animateLines 6s ease-in-out 1;
+}
+@keyframes animateLines {
+  0%,
+  100% {
+    top: 0%;
+  }
+  50% {
+    top: 100%;
+  }
+}
+
+.scan h3 {
+  text-transform: uppercase;
+  font-size: 2em;
+  letter-spacing: 2px;
+  margin-top: 20px;
+  color: #3fefef;
+  filter: drop-shadow(0 0 20px #3fefef) drop-shadow(0 0 60px #3fefef);
+  opacity: 0;
+}
+.scan.active h3 {
+  animation: animateText 0.5s steps(1) 12;
+}
+.scan:not(.active) h3 {
+  opacity: 1;
+  animation: none;
+}
+.scan:not(.active) h3::after {
+  content: "";
+  font-size: 0.5em;
+  display: block;
+  margin-top: 10px;
+}
+.scan.completed:not(.active) h3::after {
+  content: " - Scan Complete";
+  font-size: 0.5em;
+  display: block;
+  margin-top: 10px;
+  color: #00ff00;
+}
+.scan:hover:not(.active) .hand {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+@keyframes animateText {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.scan .hand .lines {
+  position: absolute;
+  inset: 0;
+}
+.scan .hand .lines::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 500px;
+  height: 0;
+  background: url(lines.png);
+  background-size: 500px;
+}
+.scan.active .hand .lines::before {
+  animation: handLines 6s ease-in-out 1;
+}
+@keyframes handLines {
+  0%,
+  25%,
+  100% {
+    height: 0;
+  }
+  50% {
+    height: 100%;
+  }
+}
+.scan .hand .lines::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 500px;
+  height: 0;
+  background: url(points.png);
+  background-size: 500px;
+}
+.scan.active .hand .lines::after {
+  animation: handPoints 6s ease-in-out 1;
+}
+@keyframes handPoints {
+  0%,
+  100% {
+    height: 0;
+  }
+  50% {
+    height: 100%;
+  }
+}
